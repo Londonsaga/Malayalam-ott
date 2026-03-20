@@ -4,19 +4,21 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 import os
-import random
 
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-]
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; MalayalamOTTBot/1.0)",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+}
 
-PLATFORM_MAP = {
+PLATFORM_KEYWORDS = {
     "netflix": "Netflix",
     "prime video": "Prime Video",
     "amazon prime": "Prime Video",
+    "amazon": "Prime Video",
     "jiohotstar": "JioHotstar",
     "hotstar": "JioHotstar",
+    "disney+": "JioHotstar",
     "sonyliv": "SonyLIV",
     "sony liv": "SonyLIV",
     "zee5": "ZEE5",
@@ -28,9 +30,12 @@ PLATFORM_MAP = {
 MONTHS = {
     "january":1,"february":2,"march":3,"april":4,"may":5,"june":6,
     "july":7,"august":8,"september":9,"october":10,"november":11,"december":12,
+    "jan":1,"feb":2,"mar":3,"apr":4,"jun":6,
+    "jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12,
 }
 
 def parse_date(text):
+    if not text: return None
     text = text.strip()
     m = re.search(r'(\w+)\s+(\d{1,2}),?\s+(20\d{2})', text)
     if m:
@@ -44,106 +49,101 @@ def parse_date(text):
         if month:
             try: return datetime(int(m.group(3)), month, int(m.group(1))).strftime('%Y-%m-%d')
             except: pass
+    m = re.search(r'(20\d{2})-(\d{2})-(\d{2})', text)
+    if m:
+        return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
     return None
 
-def normalise_platform(text):
-    t = text.strip().lower()
-    for key, val in PLATFORM_MAP.items():
-        if key in t:
-            return val
+def detect_platform(text):
+    if not text: return None
+    t = text.lower()
+    for key, val in PLATFORM_KEYWORDS.items():
+        if key in t: return val
     return None
 
-def scrape():
-    url = "https://www.filmibeat.com/top-listing/new-ott-release-movies-in-malayalam-this-week-4-1087.html"
-    headers = {
-        "User-Agent": random.choice(USER_AGENTS),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Referer": "https://www.google.com/",
-    }
-    
+def scrape_wikipedia_year(year):
+    url = f"https://en.wikipedia.org/wiki/List_of_Malayalam_films_of_{year}"
     print(f"Fetching {url}")
-    resp = requests.get(url, headers=headers, timeout=30)
-    print(f"HTTP {resp.status_code}")
-    
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=20)
+        print(f"HTTP {resp.status_code}")
+        if resp.status_code != 200: return []
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
     soup = BeautifulSoup(resp.text, "html.parser")
-    
-    # Print first 3000 chars of page text so we can see the structure
-    text = soup.get_text(separator='\n')
-    lines = [l.strip() for l in text.split('\n') if l.strip()]
-    print("\n--- FIRST 50 LINES OF PAGE ---")
-    for i, line in enumerate(lines[:50]):
-        print(f"{i}: {line}")
-    print("--- END SAMPLE ---\n")
-    
     movies = []
     seen = set()
     cutoff = datetime.now() - timedelta(days=92)
 
-    # Try multiple patterns to match FilmiBeat's text
-    patterns = [
-        re.compile(r'^(.+?)\s+(?:started|began)\s+streaming\s+on\s+(.+?)\s+(?:on|from)\s+(.+)', re.IGNORECASE),
-        re.compile(r'^(.+?)\s+(?:will\s+start|starts?)\s+streaming\s+on\s+(.+?)\s+(?:on|from|in)\s+(.+)', re.IGNORECASE),
-        re.compile(r'^(.+?)\s+(?:is\s+now\s+streaming|now\s+streaming)\s+on\s+(.+)', re.IGNORECASE),
-        re.compile(r'^(.+?)\s+OTT\s+(?:release|premiere).+?(?:on|via)\s+(.+?)\s+(?:on|from)\s+(.+)', re.IGNORECASE),
-    ]
-    
-    for i, line in enumerate(lines):
-        for pattern in patterns:
-            m = pattern.match(line)
-            if not m:
-                continue
-            
-            groups = m.groups()
-            raw_title = groups[0].strip()
-            raw_platform = groups[1].strip() if len(groups) > 1 else ""
-            raw_date = groups[2].strip() if len(groups) > 2 else ""
-            
-            title = re.sub(r'^[^a-zA-Z]+', '', raw_title).strip()
-            if len(title) < 2 or len(title) > 100:
-                continue
-            
-            platform = normalise_platform(raw_platform)
-            if not platform:
-                continue
-            
-            ott_date = parse_date(raw_date)
-            if not ott_date:
-                continue
-            
-            try:
-                if datetime.strptime(ott_date, '%Y-%m-%d') < cutoff:
-                    continue
-            except:
-                continue
-            
+    tables = soup.find_all("table", class_="wikitable")
+    print(f"Found {len(tables)} tables")
+
+    for table in tables:
+        rows = table.find_all("tr")
+        for row in rows[1:]:
+            cols = row.find_all(["td", "th"])
+            if len(cols) < 2: continue
+
+            row_text = " ".join(col.get_text(separator=" ", strip=True) for col in cols)
+            platform = detect_platform(row_text)
+            if not platform: continue
+
+            title = re.sub(r'\[\d+\]', '', cols[0].get_text(strip=True)).strip()
+            if len(title) < 2 or len(title) > 100: continue
+
             key = title.lower()
-            if key in seen:
-                continue
+            if key in seen: continue
             seen.add(key)
-            
+
+            ott_date = None
+            for col in cols:
+                d = parse_date(col.get_text(strip=True))
+                if d:
+                    ott_date = d
+                    break
+
+            if not ott_date:
+                ott_date = f"{year}-06-01"
+
+            try:
+                if datetime.strptime(ott_date, '%Y-%m-%d') < cutoff: continue
+            except: continue
+
+            director = re.sub(r'\[\d+\]', '', cols[1].get_text(strip=True)).strip()[:50] if len(cols) > 1 else ""
+
             movies.append({
                 "title": title, "platform": platform, "ottDate": ott_date,
-                "genre": "", "director": "", "cast": "", "desc": "",
+                "genre": "", "director": director, "cast": "", "desc": "",
             })
-            print(f"  FOUND: {title} → {platform} on {ott_date}")
-            break
-    
-    movies.sort(key=lambda x: x['ottDate'], reverse=True)
-    print(f"\nTotal: {len(movies)} movies found")
+            print(f"  FOUND: {title} -> {platform} on {ott_date}")
+
     return movies
 
 def main():
-    movies = scrape()
+    all_movies = []
+    seen_titles = set()
+    current_year = datetime.now().year
+    for year in [current_year, current_year - 1]:
+        for m in scrape_wikipedia_year(year):
+            key = m['title'].lower()
+            if key not in seen_titles:
+                seen_titles.add(key)
+                all_movies.append(m)
+
+    all_movies.sort(key=lambda x: x.get('ottDate', ''), reverse=True)
+    print(f"\nTotal: {len(all_movies)} movies")
+
     output = {
         "updated": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-        "count": len(movies),
-        "movies": movies,
+        "count": len(all_movies),
+        "movies": all_movies,
     }
     os.makedirs("public", exist_ok=True)
     with open("public/data.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    print(f"Saved public/data.json ({len(movies)} movies)")
+    print(f"Saved public/data.json ({len(all_movies)} movies)")
 
 if __name__ == "__main__":
     main()
