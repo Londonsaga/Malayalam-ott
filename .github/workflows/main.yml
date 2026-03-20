@@ -26,13 +26,11 @@ jobs:
       - name: Scrape and save data.json
         run: python scraper.py
 
-     - name: Commit updated data
+      - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data.json
-          git stash
-          git pull --rebase
-          git stash pop
-          git diff --staged --quiet || git commit -m "Auto-update Malayalam OTT data $(date +'%Y-%m-%d')"
-          git push
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "Auto-update Malayalam OTT data $(date +'%Y-%m-%d')"
+          git push origin HEAD:main --force
