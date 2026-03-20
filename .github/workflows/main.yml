@@ -28,8 +28,9 @@ jobs:
 
       - name: Commit updated data
         run: |
-          git config user.name "github-actions[bot]"
+         git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
           git add public/data.json
           git diff --staged --quiet || git commit -m "Auto-update Malayalam OTT data $(date +'%Y-%m-%d')"
           git push
