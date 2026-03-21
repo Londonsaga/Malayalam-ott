@@ -34,8 +34,8 @@ def main():
         text = soup.get_text(separator='\n')
         lines = [l.strip() for l in text.split('\n') if l.strip()]
         print(f"Total lines: {len(lines)}")
-        print("--- LINES 50 to 100 ---")
-        for i, line in enumerate(lines[50:100], start=50):
+        print("--- LINES 100 to 200 ---")
+        for i, line in enumerate(lines[100:200], start=100):
             print(f"{i}: {line}")
 
     os.makedirs("public", exist_ok=True)
