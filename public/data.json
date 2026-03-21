@@ -1,1 +1,177 @@
-{"updated": "2026-03-21T09:34:04Z", "count": 0, "movies": []}
+{
+  "updated": "2026-03-21T09:36:44Z",
+  "count": 19,
+  "movies": [
+    {
+      "title": "Kasaragod Embassy",
+      "platform": "ZEE5",
+      "ottDate": "2026-03-20",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Prakambanam",
+      "platform": "ZEE5",
+      "ottDate": "2026-03-13",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Pennu Case",
+      "platform": "Prime Video",
+      "ottDate": "2026-03-13",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Pennum Porattum",
+      "platform": "Netflix",
+      "ottDate": "2026-03-13",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Dheeram",
+      "platform": "Prime Video",
+      "ottDate": "2026-03-06",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Secret Stories: Roslin",
+      "platform": "JioHotstar",
+      "ottDate": "2026-02-27",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Paathirathri",
+      "platform": "ZEE5",
+      "ottDate": "2026-02-20",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Amoz Alexander",
+      "platform": "Sun NXT",
+      "ottDate": "2026-02-20",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Chatha Pacha",
+      "platform": "Netflix",
+      "ottDate": "2026-02-19",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Babygirl",
+      "platform": "SonyLIV",
+      "ottDate": "2026-02-12",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Mindiyum Paranjum",
+      "platform": "Sun NXT",
+      "ottDate": "2026-02-06",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Nellikampoyil Night Riders",
+      "platform": "ZEE5",
+      "ottDate": "2026-02-06",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Sarvam Maya",
+      "platform": "JioHotstar",
+      "ottDate": "2026-01-30",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Sheshippu",
+      "platform": "Sun NXT",
+      "ottDate": "2026-01-23",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Kalamkaval",
+      "platform": "SonyLIV",
+      "ottDate": "2026-01-16",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Bha Bha Ba",
+      "platform": "ZEE5",
+      "ottDate": "2026-01-16",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Balti",
+      "platform": "Prime Video",
+      "ottDate": "2026-01-09",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Eko",
+      "platform": "Netflix",
+      "ottDate": "2025-12-31",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Ithiri Neram",
+      "platform": "Prime Video",
+      "ottDate": "2025-12-31",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    }
+  ]
+}
