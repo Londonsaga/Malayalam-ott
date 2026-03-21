@@ -1,6 +1,24 @@
+import requests
+from bs4 import BeautifulSoup
 import json, re, os
 from datetime import datetime, timedelta, timezone
-from playwright.sync_api import sync_playwright
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Referer": "https://www.google.com/",
+}
+
+PLATFORM_MAP = {
+    "netflix": "Netflix",
+    "prime video": "Prime Video", "amazon prime": "Prime Video", "amazon": "Prime Video",
+    "jiohotstar": "JioHotstar", "hotstar": "JioHotstar", "disney+": "JioHotstar",
+    "sonyliv": "SonyLIV", "sony liv": "SonyLIV",
+    "zee5": "ZEE5",
+    "manorama max": "Manorama MAX",
+    "sun nxt": "Sun NXT", "sunnxt": "Sun NXT",
+}
 
 MONTHS = {
     "january":1,"february":2,"march":3,"april":4,"may":5,"june":6,
@@ -9,14 +27,10 @@ MONTHS = {
     "jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12,
 }
 
-PLATFORM_MAP = {
-    "netflix":"Netflix","prime video":"Prime Video","amazon prime":"Prime Video",
-    "jiohotstar":"JioHotstar","hotstar":"JioHotstar","disney+":"JioHotstar",
-    "sonyliv":"SonyLIV","sony liv":"SonyLIV","zee5":"ZEE5",
-    "manorama max":"Manorama MAX","sun nxt":"Sun NXT","sunnxt":"Sun NXT",
+DUBBED = {
+    "nari nari naduma murari","made in korea","lucky: the superstar",
+    "mirai","tourist family","kantara chapter 1","bison",
 }
-
-DUBBED = {"nari nari naduma murari","made in korea","lucky: the superstar","mirai"}
 
 def parse_date(text):
     if not text: return None
@@ -40,62 +54,108 @@ def detect_platform(text):
         if key in t: return val
     return None
 
-def scrape():
-    url = "https://www.filmibeat.com/top-listing/new-ott-release-movies-in-malayalam-this-week-4-1087.html"
+def fetch(url):
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=20)
+        print(f"  {url} -> HTTP {r.status_code}")
+        if r.status_code == 200: return r.text
+    except Exception as e:
+        print(f"  Error: {e}")
+    return None
+
+def extract_movies(html, cutoff):
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text(separator='\n')
+    lines = [l.strip() for l in text.split('\n') if l.strip()]
+    
     movies = []
     seen = set()
-    cutoff = datetime.now() - timedelta(days=92)
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36")
-        print(f"Opening {url}")
-        page.goto(url, wait_until="networkidle", timeout=60000)
-        page.wait_for_timeout(3000)
-        content = page.inner_text("body")
-        browser.close()
-
-    print(f"Got {len(content)} chars")
-    lines = [l.strip() for l in content.split('\n') if l.strip()]
-
-    pattern = re.compile(
-        r'^(.+?)\s+(?:started|began|will start)\s+streaming\s+on\s+(.+?)\s+(?:on|from|in)\s+(.+)',
+    
+    stream_pattern = re.compile(
+        r'^(.+?)\s+(?:started|begins?|began|will\s+start|starts?|is\s+now)\s+streaming\s+on\s+(.+?)\s+(?:on|from|starting)?\s*((?:\w+\s+\d{1,2},?\s+20\d{2}|\d{1,2}\s+\w+\s+20\d{2}))',
+        re.IGNORECASE
+    )
+    on_pattern = re.compile(
+        r'^(.+?)\s+(?:on|via|streaming\s+on|available\s+on)\s+(.+?)\s+(?:from|on|starting)?\s*((?:\w+\s+\d{1,2},?\s+20\d{2}|\d{1,2}\s+\w+\s+20\d{2}))',
         re.IGNORECASE
     )
 
     for i, line in enumerate(lines):
-        m = pattern.match(line)
-        if not m: continue
-        title = re.sub(r'^[^a-zA-Z]+', '', m.group(1)).strip()
-        platform = detect_platform(m.group(2))
-        ott_date = parse_date(m.group(3))
-        if not title or not platform or not ott_date: continue
-        if title.lower() in DUBBED: continue
-        if len(title) < 2 or len(title) > 100: continue
-        try:
-            if datetime.strptime(ott_date, '%Y-%m-%d') < cutoff: continue
-        except: continue
-        key = title.lower()
-        if key in seen: continue
-        seen.add(key)
-        desc = ""
-        for j in range(i+1, min(i+4, len(lines))):
-            if len(lines[j]) > 40 and not pattern.match(lines[j]):
-                desc = lines[j][:200]
-                break
-        movies.append({"title":title,"platform":platform,"ottDate":ott_date,"genre":"","director":"","cast":"","desc":desc})
-        print(f"  FOUND: {title} -> {platform} on {ott_date}")
-
-    movies.sort(key=lambda x: x['ottDate'], reverse=True)
-    print(f"Total: {len(movies)} movies")
+        for pattern in [stream_pattern, on_pattern]:
+            m = pattern.match(line)
+            if not m: continue
+            
+            title = re.sub(r'\[\d+\]', '', m.group(1)).strip()
+            title = re.sub(r'^[^a-zA-Z]+', '', title).strip()
+            platform = detect_platform(m.group(2))
+            ott_date = parse_date(m.group(3))
+            
+            if not title or not platform or not ott_date: continue
+            if len(title) < 2 or len(title) > 100: continue
+            if title.lower() in DUBBED: continue
+            
+            try:
+                if datetime.strptime(ott_date, '%Y-%m-%d') < cutoff: continue
+            except: continue
+            
+            key = title.lower()
+            if key in seen: continue
+            seen.add(key)
+            
+            desc = ""
+            for j in range(i+1, min(i+4, len(lines))):
+                if len(lines[j]) > 40 and not stream_pattern.match(lines[j]):
+                    desc = lines[j][:200]
+                    break
+            
+            movies.append({
+                "title": title, "platform": platform, "ottDate": ott_date,
+                "genre": "", "director": "", "cast": "", "desc": desc,
+            })
+            print(f"  FOUND: {title} -> {platform} on {ott_date}")
+            break
+    
     return movies
 
 def main():
-    movies = scrape()
+    cutoff = datetime.now() - timedelta(days=92)
+    all_movies = []
+    seen_titles = set()
+
+    # Try multiple sources
+    sources = [
+        "https://www.ottplay.com/news/latest-malayalam-movies-web-series-2022-on-ott-netflix-prime-video-disney-hotstar-neestream-and-others/451777f0f1884/1000",
+        "https://cinebuds.com/malayalam-movies-ott-release-dates/",
+        "https://telugu-kathalu.com/new-malayalam-ott-releases-march-2026-latest-streaming-movies-must-watch-updates/",
+    ]
+
+    for url in sources:
+        print(f"\nTrying: {url}")
+        html = fetch(url)
+        if not html:
+            print("  Failed to fetch")
+            continue
+        
+        movies = extract_movies(html, cutoff)
+        print(f"  Extracted {len(movies)} movies")
+        
+        for m in movies:
+            key = m['title'].lower()
+            if key not in seen_titles:
+                seen_titles.add(key)
+                all_movies.append(m)
+
+    all_movies.sort(key=lambda x: x.get('ottDate',''), reverse=True)
+    print(f"\nTotal: {len(all_movies)} movies")
+
     os.makedirs("public", exist_ok=True)
     with open("public/data.json", "w", encoding="utf-8") as f:
-        json.dump({"updated": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), "count": len(movies), "movies": movies}, f, ensure_ascii=False, indent=2)
-    print(f"Saved {len(movies)} movies")
+        json.dump({
+            "updated": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "count": len(all_movies),
+            "movies": all_movies,
+        }, f, ensure_ascii=False, indent=2)
+    print(f"Saved {len(all_movies)} movies to public/data.json")
 
 if __name__ == "__main__":
     main()
