@@ -26,11 +26,16 @@ jobs:
       - name: Scrape and save data.json
         run: python scraper.py
 
+      - name: Copy files to root for GitHub Pages
+        run: |
+          cp public/index.html index.html
+          cp public/data.json data.json
+
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data.json
+          git add index.html data.json public/data.json
           git diff --staged --quiet && echo "No changes" && exit 0
           git commit -m "Auto-update Malayalam OTT data $(date +'%Y-%m-%d')"
           git push origin HEAD:main --force
