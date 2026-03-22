@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MalayalamOTT — Latest Releases</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#E8B84B;--gold-dim:#a07d28;--bg:#0a0a0f;--surface:#111118;--surface2:#1a1a24;--border:rgba(232,184,75,0.15);--text:#e8e4dc;--muted:#6b6880;--red:#e84b4b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+
+  header{border-bottom:1px solid var(--border);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:68px;background:rgba(10,10,15,0.97);position:sticky;top:0;z-index:20}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--gold)}
+  .logo-sub{font-size:10px;font-weight:300;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-left:8px}
+  .updated-badge{font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .updated-badge span{color:var(--gold)}
+
+  .hero{padding:52px 36px 36px;text-align:center}
+  .hero-eye{font-size:11px;letter-spacing:5px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,7vw,88px);line-height:.9;letter-spacing:4px;margin-bottom:16px}
+  .hero-title span{color:var(--gold)}
+  .hero-desc{color:var(--muted);font-size:14px;max-width:460px;margin:0 auto 10px;line-height:1.7}
+  .hero-note{font-size:11px;color:var(--gold-dim);margin-bottom:32px}
+
+  .filter-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+  .filter-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;width:100%;margin-bottom:2px}
+  .pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:1px;border:1px solid;cursor:pointer;transition:all .2s;background:transparent}
+  .pill-all{color:var(--gold);border-color:var(--gold)}.pill-all.on,.pill-all:hover{background:var(--gold);color:var(--bg)}
+  .pill-nf{color:#E50914;border-color:#E50914}.pill-nf.on,.pill-nf:hover{background:#E50914;color:#fff}
+  .pill-pv{color:#00A8E1;border-color:#00A8E1}.pill-pv.on,.pill-pv:hover{background:#00A8E1;color:#fff}
+  .pill-hs{color:#1F80E0;border-color:#1F80E0}.pill-hs.on,.pill-hs:hover{background:#1F80E0;color:#fff}
+  .pill-sl{color:#F0622F;border-color:#F0622F}.pill-sl.on,.pill-sl:hover{background:#F0622F;color:#fff}
+  .pill-z5{color:#8A2BE2;border-color:#8A2BE2}.pill-z5.on,.pill-z5:hover{background:#8A2BE2;color:#fff}
+  .pill-mm{color:#F5A623;border-color:#F5A623}.pill-mm.on,.pill-mm:hover{background:#F5A623;color:var(--bg)}
+  .pill-sn{color:#FF6B35;border-color:#FF6B35}.pill-sn.on,.pill-sn:hover{background:#FF6B35;color:#fff}
+
+  /* loading spinner */
+  .loader{display:flex;flex-direction:column;align-items:center;gap:16px;padding:60px 0}
+  .loader.hidden{display:none}
+  .spin-ring{width:48px;height:48px;border-radius:50%;border:3px solid var(--surface2);border-top-color:var(--gold);animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loader p{font-size:12px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+
+  main{padding:0 36px 80px;max-width:1400px;margin:0 auto}
+
+  .summary{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px;flex:1;min-width:100px;text-align:center}
+  .stat-n{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--gold);line-height:1}
+  .stat-l{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px}
+
+  .date-group{margin-bottom:44px}
+  .dh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .dh-lbl{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px}
+  .dh-line{flex:1;height:1px;background:var(--border)}
+  .dh-cnt{font-size:11px;letter-spacing:2px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:18px}
+  .card{position:relative;border-radius:8px;overflow:hidden;background:var(--surface);border:1px solid var(--border);transition:all .3s;animation:cardIn .4s ease both}
+  @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.55)}
+
+  .poster{width:100%;aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
+  .poster-emoji{font-size:50px;opacity:.5}
+  .poster-plat{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+  .ribbon{position:absolute;top:0;left:0;right:0;padding:7px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center}
+  .r-today{background:rgba(232,75,75,.92);color:#fff}
+  .r-week{background:rgba(232,184,75,.9);color:#0a0a0f}
+  .r-old{background:rgba(10,10,15,.78);color:var(--muted)}
+  .orig-tag{position:absolute;bottom:7px;right:7px;background:rgba(10,10,15,.82);border:1px solid rgba(232,184,75,.25);color:var(--gold-dim);font-size:8px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+
+  .card-body{padding:12px 13px 14px}
+  .plat-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-bottom:8px}
+  .card-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;line-height:1.1;margin-bottom:5px}
+  .card-date{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:4px}
+  .card-info{font-size:11px;color:var(--muted);line-height:1.6}
+  .card-desc{font-size:11px;color:#8884aa;line-height:1.5;margin-top:5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+  .empty{text-align:center;padding:72px 36px}
+  .empty-icon{font-size:60px;margin-bottom:16px;opacity:.3}
+  .empty-title{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:3px;color:var(--muted);margin-bottom:10px}
+  .empty-desc{color:var(--muted);font-size:14px}
+
+  footer{border-top:1px solid var(--border);padding:22px 36px;text-align:center;font-size:11px;color:var(--muted);letter-spacing:1px;line-height:2}
+
+  @media(max-width:640px){
+    header,footer{padding:0 18px}
+    .hero{padding:36px 18px 28px}
+    main{padding:0 18px 60px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px}
+    .logo-sub{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div><span class="logo">MalayalamOTT</span><span class="logo-sub">Release Tracker</span></div>
+  <div class="updated-badge">Updated: <span id="updatedDate">loading…</span></div>
+</header>
+
+<section class="hero">
+  <p class="hero-eye">Auto-updated daily · Sorted newest first</p>
+  <h1 class="hero-title">Latest <span>Malayalam</span><br>OTT Releases</h1>
+  <p class="hero-desc">The latest original Malayalam movies on Netflix, Prime Video, JioHotstar, SonyLIV, ZEE5, Manorama MAX and Sun NXT — sorted by OTT release date.</p>
+  <p class="hero-note">✅ Original Malayalam productions only &nbsp;·&nbsp; ❌ No dubbed content</p>
+
+  <div class="filter-row">
+    <p class="filter-label">Filter by platform</p>
+    <button class="pill pill-all on" onclick="setFilter('all',this)">All</button>
+    <button class="pill pill-nf"     onclick="setFilter('Netflix',this)">Netflix</button>
+    <button class="pill pill-pv"     onclick="setFilter('Prime Video',this)">Prime Video</button>
+    <button class="pill pill-hs"     onclick="setFilter('JioHotstar',this)">JioHotstar</button>
+    <button class="pill pill-sl"     onclick="setFilter('SonyLIV',this)">SonyLIV</button>
+    <button class="pill pill-z5"     onclick="setFilter('ZEE5',this)">ZEE5</button>
+    <button class="pill pill-mm"     onclick="setFilter('Manorama MAX',this)">Manorama MAX</button>
+    <button class="pill pill-sn"     onclick="setFilter('Sun NXT',this)">Sun NXT</button>
+  </div>
+</section>
+
+<main>
+  <div class="loader" id="loader">
+    <div class="spin-ring"></div>
+    <p>Loading latest releases…</p>
+  </div>
+
+  <div id="appContent" style="display:none">
+    <div class="summary">
+      <div class="stat"><div class="stat-n" id="sTot">0</div><div class="stat-l">Total</div></div>
+      <div class="stat"><div class="stat-n" id="sPlt">0</div><div class="stat-l">Platforms</div></div>
+      <div class="stat"><div class="stat-n" id="sWk">0</div><div class="stat-l">This Week</div></div>
+      <div class="stat"><div class="stat-n" id="sMo">0</div><div class="stat-l">This Month</div></div>
+    </div>
+    <div id="results"></div>
+  </div>
+
+  <div class="empty hidden" id="emptyState">
+    <div class="empty-icon">🎬</div>
+    <div class="empty-title">No Results</div>
+    <p class="empty-desc">No films found for the selected platform.</p>
+  </div>
+</main>
+
+<footer>
+  MalayalamOTT Tracker &nbsp;·&nbsp; Original Malayalam films only — no dubbed content<br>
+  Auto-updated daily from FilmiBeat &nbsp;·&nbsp; Not affiliated with any OTT platform
+</footer>
+
+<script>
+const COLORS={Netflix:'#E50914','Prime Video':'#00A8E1',JioHotstar:'#1F80E0',SonyLIV:'#F0622F',ZEE5:'#8A2BE2','Manorama MAX':'#F5A623','Sun NXT':'#FF6B35'};
+const EMOJIS={Netflix:'🔴','Prime Video':'🔵',JioHotstar:'⭐',SonyLIV:'🟠',ZEE5:'🟣','Manorama MAX':'🟡','Sun NXT':'🌅'};
+
+let allMovies=[], activePlatform='all';
+
+// ── Load data.json on page open ───────────────────────────────────────────
+async function loadData(){
+  try{
+    const res = await fetch('data.json?v='+Date.now()); // cache-bust
+    if(!res.ok) throw new Error('Could not load data.json');
+    const json = await res.json();
+    allMovies = json.movies || [];
+
+    // Show updated date in header
+    if(json.updated){
+      const d = new Date(json.updated);
+      document.getElementById('updatedDate').textContent =
+        d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+    }
+
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('appContent').style.display='block';
+    render();
+    updateSummary();
+  }catch(e){
+    document.getElementById('loader').innerHTML =
+      `<div style="color:var(--red);font-size:13px">⚠ Could not load data: ${e.message}</div>`;
+  }
+}
+
+// ── Filter ────────────────────────────────────────────────────────────────
+function setFilter(p,btn){
+  activePlatform=p;
+  document.querySelectorAll('.pill').forEach(e=>e.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+
+// ── Date helpers ──────────────────────────────────────────────────────────
+const toDate=s=>{if(!s)return null;const d=new Date(s);return isNaN(d)?null:d;};
+const daysAgo=s=>{const d=toDate(s);return d?Math.floor((Date.now()-d)/86400000):null;};
+const fmtDate=s=>{const d=toDate(s);return d?d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'TBC';};
+const ribLabel=n=>{
+  if(n===null)return null;
+  if(n===0)return'Today';if(n===1)return'Yesterday';
+  if(n<=6)return n+' days ago';if(n<=13)return'1 week ago';
+  if(n<=20)return'2 weeks ago';if(n<=27)return'3 weeks ago';
+  return Math.round(n/30)<=1?'1 month ago':Math.round(n/30)+' months ago';
+};
+const ribClass=n=>n===null||n>7?'r-old':n<=1?'r-today':'r-week';
+const monthGrp=s=>{const d=toDate(s);return d?d.toLocaleDateString('en-IN',{month:'long',year:'numeric'}):'Unknown';};
+
+// ── Render ────────────────────────────────────────────────────────────────
+function render(){
+  const el=document.getElementById('results');
+  const empty=document.getElementById('emptyState');
+
+  let list=activePlatform==='all'?allMovies:allMovies.filter(m=>m.platform===activePlatform);
+
+  if(!list.length){
+    el.innerHTML='';
+    empty.classList.remove('hidden');
+    empty.querySelector('.empty-desc').textContent=
+      activePlatform==='all'?'No films found.':
+      `No original Malayalam films found on "${activePlatform}".`;
+    return;
+  }
+  empty.classList.add('hidden');
+
+  const groups={};
+  list.forEach(m=>{const k=monthGrp(m.ottDate);(groups[k]||(groups[k]=[])).push(m);});
+
+  let html='',idx=0;
+  for(const[month,films] of Object.entries(groups)){
+    html+=`<div class="date-group">
+      <div class="dh">
+        <span class="dh-lbl">${month}</span>
+        <span class="dh-line"></span>
+        <span class="dh-cnt">${films.length} film${films.length!==1?'s':''}</span>
+      </div>
+      <div class="grid">`;
+
+    films.forEach(m=>{
+      const color=COLORS[m.platform]||'#888';
+      const emoji=EMOJIS[m.platform]||'🎬';
+      const n=daysAgo(m.ottDate);
+      const rl=ribLabel(n),rc=ribClass(n);
+      const delay=(idx++*0.04).toFixed(2);
+
+      html+=`<div class="card" style="animation-delay:${delay}s">
+        <div class="poster" style="background:linear-gradient(160deg,${color}26,${color}07)">
+          ${rl?`<div class="ribbon ${rc}">${rl}</div>`:''}
+          <div class="poster-emoji">${emoji}</div>
+          <div class="poster-plat">${m.platform}</div>
+          <div class="orig-tag">Malayalam</div>
+        </div>
+        <div class="card-body">
+          <div class="plat-badge" style="background:${color}22;color:${color}">${m.platform}</div>
+          <div class="card-title">${m.title}</div>
+          <div class="card-date">📅 ${fmtDate(m.ottDate)}</div>
+          <div class="card-info">
+            ${m.genre||''}
+            ${m.director?'<br>Dir: '+m.director:''}
+            ${m.cast?'<br>'+m.cast:''}
+          </div>
+          ${m.desc?`<div class="card-desc">${m.desc}</div>`:''}
+        </div>
+      </div>`;
+    });
+    html+=`</div></div>`;
+  }
+  el.innerHTML=html;
+}
+
+function updateSummary(){
+  const weekAgo=new Date();weekAgo.setDate(weekAgo.getDate()-7);
+  const monAgo=new Date();monAgo.setDate(monAgo.getDate()-30);
+  document.getElementById('sTot').textContent=allMovies.length;
+  document.getElementById('sPlt').textContent=new Set(allMovies.map(m=>m.platform)).size;
+  document.getElementById('sWk').textContent=allMovies.filter(m=>{const d=toDate(m.ottDate);return d&&d>=weekAgo;}).length;
+  document.getElementById('sMo').textContent=allMovies.filter(m=>{const d=toDate(m.ottDate);return d&&d>=monAgo;}).length;
+}
+
+loadData();
+</script>
+</body>
+</html>
