@@ -1,6 +1,6 @@
 {
-  "updated": "2026-04-01T08:04:48Z",
-  "count": 19,
+  "updated": "2026-04-02T06:56:09Z",
+  "count": 17,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -150,24 +150,6 @@
       "title": "Balti",
       "platform": "Prime Video",
       "ottDate": "2026-01-09",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Eko",
-      "platform": "Netflix",
-      "ottDate": "2025-12-31",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Ithiri Neram",
-      "platform": "Prime Video",
-      "ottDate": "2025-12-31",
       "genre": "",
       "director": "",
       "cast": "",
