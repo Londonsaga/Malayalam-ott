@@ -1,6 +1,6 @@
 {
-  "updated": "2026-04-17T08:17:40Z",
-  "count": 16,
+  "updated": "2026-04-18T06:49:41Z",
+  "count": 14,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -123,24 +123,6 @@
       "title": "Sheshippu",
       "platform": "Sun NXT",
       "ottDate": "2026-01-23",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Kalamkaval",
-      "platform": "SonyLIV",
-      "ottDate": "2026-01-16",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Bha Bha Ba",
-      "platform": "ZEE5",
-      "ottDate": "2026-01-16",
       "genre": "",
       "director": "",
       "cast": "",
