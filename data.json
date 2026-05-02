@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-01T05:59:07Z",
-  "count": 13,
+  "updated": "2026-05-02T05:28:44Z",
+  "count": 12,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -105,15 +105,6 @@
       "title": "Nellikampoyil Night Riders",
       "platform": "ZEE5",
       "ottDate": "2026-02-06",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Sarvam Maya",
-      "platform": "JioHotstar",
-      "ottDate": "2026-01-30",
       "genre": "",
       "director": "",
       "cast": "",
