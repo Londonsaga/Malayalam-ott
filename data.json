@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-08T05:22:05Z",
-  "count": 12,
+  "updated": "2026-05-09T05:39:23Z",
+  "count": 10,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -87,24 +87,6 @@
       "title": "Babygirl",
       "platform": "SonyLIV",
       "ottDate": "2026-02-12",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Mindiyum Paranjum",
-      "platform": "Sun NXT",
-      "ottDate": "2026-02-06",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Nellikampoyil Night Riders",
-      "platform": "ZEE5",
-      "ottDate": "2026-02-06",
       "genre": "",
       "director": "",
       "cast": "",
