@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-14T06:15:29Z",
-  "count": 10,
+  "updated": "2026-05-15T06:23:40Z",
+  "count": 9,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -78,15 +78,6 @@
       "title": "Chatha Pacha",
       "platform": "Netflix",
       "ottDate": "2026-02-19",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Babygirl",
-      "platform": "SonyLIV",
-      "ottDate": "2026-02-12",
       "genre": "",
       "director": "",
       "cast": "",
