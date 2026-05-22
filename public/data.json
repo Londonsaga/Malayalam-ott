@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-21T06:42:39Z",
-  "count": 9,
+  "updated": "2026-05-22T06:39:37Z",
+  "count": 8,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -69,15 +69,6 @@
       "title": "Amoz Alexander",
       "platform": "Sun NXT",
       "ottDate": "2026-02-20",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Chatha Pacha",
-      "platform": "Netflix",
-      "ottDate": "2026-02-19",
       "genre": "",
       "director": "",
       "cast": "",
