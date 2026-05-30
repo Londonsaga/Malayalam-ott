@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-29T06:44:49Z",
-  "count": 6,
+  "updated": "2026-05-30T06:15:00Z",
+  "count": 5,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -42,15 +42,6 @@
       "title": "Dheeram",
       "platform": "Prime Video",
       "ottDate": "2026-03-06",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Secret Stories: Roslin",
-      "platform": "JioHotstar",
-      "ottDate": "2026-02-27",
       "genre": "",
       "director": "",
       "cast": "",
