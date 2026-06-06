@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-05T06:57:50Z",
-  "count": 5,
+  "updated": "2026-06-06T06:21:02Z",
+  "count": 4,
   "movies": [
     {
       "title": "Kasaragod Embassy",
@@ -33,15 +33,6 @@
       "title": "Pennum Porattum",
       "platform": "Netflix",
       "ottDate": "2026-03-13",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Dheeram",
-      "platform": "Prime Video",
-      "ottDate": "2026-03-06",
       "genre": "",
       "director": "",
       "cast": "",
