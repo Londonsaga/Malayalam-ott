@@ -1,38 +1,11 @@
 {
-  "updated": "2026-06-12T07:12:41Z",
-  "count": 4,
+  "updated": "2026-06-13T06:48:13Z",
+  "count": 1,
   "movies": [
     {
       "title": "Kasaragod Embassy",
       "platform": "ZEE5",
       "ottDate": "2026-03-20",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Prakambanam",
-      "platform": "ZEE5",
-      "ottDate": "2026-03-13",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Pennu Case",
-      "platform": "Prime Video",
-      "ottDate": "2026-03-13",
-      "genre": "",
-      "director": "",
-      "cast": "",
-      "desc": ""
-    },
-    {
-      "title": "Pennum Porattum",
-      "platform": "Netflix",
-      "ottDate": "2026-03-13",
       "genre": "",
       "director": "",
       "cast": "",
