@@ -1,7 +1,16 @@
 {
-  "updated": "2026-09-01T08:05:47Z",
-  "count": 2,
+  "updated": "2026-09-02T07:25:21Z",
+  "count": 3,
   "movies": [
+    {
+      "title": "Checkmate",
+      "platform": "ZEE5",
+      "ottDate": "2026-10-02",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Maine Pyar Kiya",
       "platform": "Prime Video",
