@@ -1,7 +1,16 @@
 {
-  "updated": "2026-09-16T08:03:04Z",
-  "count": 4,
+  "updated": "2026-09-17T08:09:14Z",
+  "count": 5,
   "movies": [
+    {
+      "title": "Aabhyanthara Kuttavaali",
+      "platform": "ZEE5",
+      "ottDate": "2026-10-17",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Mehfil",
       "platform": "Sun NXT",
