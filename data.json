@@ -1,7 +1,16 @@
 {
-  "updated": "2026-09-22T08:03:12Z",
-  "count": 5,
+  "updated": "2026-09-23T08:05:33Z",
+  "count": 6,
   "movies": [
+    {
+      "title": "Mirage",
+      "platform": "SonyLIV",
+      "ottDate": "2026-10-23",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Aabhyanthara Kuttavaali",
       "platform": "ZEE5",
