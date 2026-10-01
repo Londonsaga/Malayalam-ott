@@ -1,7 +1,16 @@
 {
-  "updated": "2026-09-30T09:08:01Z",
-  "count": 7,
+  "updated": "2026-10-01T09:35:05Z",
+  "count": 8,
   "movies": [
+    {
+      "title": "Lokah - Chapter 1: Chandra",
+      "platform": "JioHotstar",
+      "ottDate": "2026-10-31",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Thalavara",
       "platform": "Prime Video",
