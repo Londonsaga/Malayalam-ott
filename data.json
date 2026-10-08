@@ -1,7 +1,16 @@
 {
-  "updated": "2026-10-07T09:30:54Z",
-  "count": 8,
+  "updated": "2026-10-08T09:41:55Z",
+  "count": 9,
   "movies": [
+    {
+      "title": "Karam",
+      "platform": "Prime Video",
+      "ottDate": "2026-11-07",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Lokah - Chapter 1: Chandra",
       "platform": "JioHotstar",
