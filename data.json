@@ -1,7 +1,25 @@
 {
-  "updated": "2026-10-14T08:10:29Z",
-  "count": 9,
+  "updated": "2026-10-15T07:49:29Z",
+  "count": 11,
   "movies": [
+    {
+      "title": "Avihitham",
+      "platform": "JioHotstar",
+      "ottDate": "2026-11-14",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Sangharsha Ghadana",
+      "platform": "Sun NXT",
+      "ottDate": "2026-11-14",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Karam",
       "platform": "Prime Video",
