@@ -1,7 +1,16 @@
 {
-  "updated": "2026-10-28T09:06:58Z",
-  "count": 11,
+  "updated": "2026-10-29T09:05:24Z",
+  "count": 12,
   "movies": [
+    {
+      "title": "The Pet Detective",
+      "platform": "ZEE5",
+      "ottDate": "2026-11-28",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Avihitham",
       "platform": "JioHotstar",
