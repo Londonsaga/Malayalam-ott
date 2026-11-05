@@ -1,7 +1,16 @@
 {
-  "updated": "2026-11-04T10:08:35Z",
-  "count": 12,
+  "updated": "2026-11-05T10:01:44Z",
+  "count": 13,
   "movies": [
+    {
+      "title": "Diés Iraé",
+      "platform": "JioHotstar",
+      "ottDate": "2026-12-05",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "The Pet Detective",
       "platform": "ZEE5",
