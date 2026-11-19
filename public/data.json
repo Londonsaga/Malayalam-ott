@@ -1,7 +1,25 @@
 {
-  "updated": "2026-11-18T10:52:28Z",
-  "count": 13,
+  "updated": "2026-11-19T10:54:33Z",
+  "count": 15,
   "movies": [
+    {
+      "title": "Dominic and the Ladies' Purse",
+      "platform": "ZEE5",
+      "ottDate": "2026-12-19",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
+    {
+      "title": "Pharma",
+      "platform": "JioHotstar",
+      "ottDate": "2026-12-19",
+      "genre": "",
+      "director": "",
+      "cast": "",
+      "desc": ""
+    },
     {
       "title": "Diés Iraé",
       "platform": "JioHotstar",
